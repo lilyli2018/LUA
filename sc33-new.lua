@@ -232,12 +232,12 @@ function XSJ()
    end
   
    if YJJ[10] == true then 
-      SCJT() 
+      Main() 
    end 
 end
 
 
-function SCJT()
+function Main()
    SN = gg.choice({
    "1  快速升级",
    "2  直建仓库",
@@ -256,13 +256,13 @@ function SCJT()
    if SN == 6 then kuisujianshe() end
    if SN == 7 then submap() end
    if SN == 8 then Exit() end
-   shancun = '山村'  
+   runFlag = '山村'  
 end
 
 function kuisujianshe()
-   local shancunjt =gg.alert('已经开始建造机场，码头，博士大楼。 \n 我想让它立即建设完成。不想等待了。',"       [✈✈✈  立刻建设完成  ✈✈✈]","[我还没开始建造，先回主菜单]           ")
-   if shancunjt == 2 then SCJT() end	
-   if shancunjt == 1 then 
+   local selection =gg.alert('已经开始建造机场，码头，博士大楼。 \n 我想让它立即建设完成。不想等待了。',"       [✈✈✈  立刻建设完成  ✈✈✈]","[我还没开始建造，先回主菜单]           ")
+   if selection == 2 then Main() end	
+   if selection == 1 then 
       gg.clearResults()  
       gg.setVisible(false) 
 	   gg.searchNumber("2;4;1000::17",gg.TYPE_DWORD)
@@ -280,10 +280,10 @@ end
 
 while true do
    if gg.isVisible(true) then
-      shancun = 'shancun'
+      runFlag = 'run'
       gg.setVisible(false)
    end
-   if shancun == 'shancun' then 
-      SCJT()
+   if runFlag == 'run' then 
+      Main()
    end
 end
