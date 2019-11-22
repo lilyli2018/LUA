@@ -1,5 +1,5 @@
 jianzpd,xsjpd,salecode,shuliang,xsjcode,remark,tempcount = true,true,{},{},{},{},0
-
+simoleons = {}
 function read(dizhi,leixing)  
    local td ={} td[1] = {}      
    td[1].address,td[1].flags,td[1].value=dizhi,leixing,0
@@ -15,7 +15,24 @@ function write(dizhi,shujv,zhuangtai)
    
    return txr[1].value 
 end
-     
+
+function getSimoleons()
+   local data = gg.prompt({'你目前的模拟币','你目前的绿钞'},{[1]="输入你的模拟币数",[2]="输入你的绿钞"})
+
+   gg.clearResults()
+   gg.searchNumber(string.format("%d;%d::50",data[1],data[2]),gg.TYPE_DWORD)
+
+   if(gg.getResultCount()==4) then
+      local simoleonsAddress = gg.getResults(4)
+
+      simoleons.value = read(simoleonsAddress[1],gg.TYPE_DWORD)
+      simoleons.encrypt1 = read((simoleonsAddress[1]+0x8),gg.TYPE_DWORD)
+      simoleons.encrypt2 = read((simoleonsAddress[1]+0xC),gg.TYPE_DWORD)
+   end
+
+   gg.toast("%d;%d;%d",simoleons.value,simoleons.encrypt1,simoleons.encrypt2)
+end
+
 function shengji()
    gg.clearResults() 
    local Exp = gg.prompt({'升级房屋的金钱奖励', '升级房屋的经验奖励','你想得到的金钱奖励','你想要升级后的等级（18级~35级之间选择）'}, {[1]="去找一个可以升级的房屋并输入", [2]="去找一个可以升级的房屋并输入", [3]=5000000, [4]=30})
@@ -194,6 +211,8 @@ function XSJ()
       "  返回到主菜单"
    }, nil, "🔑  山村集团内部工具  🔑  刷材料(可以多选连续刷)  🔑")
   
+   getSimoleons()
+   
    if YJJ[1] == true then
       SMgetcode("%d;0;-2147483648~-2;-2147483648~-2;3;0::21",16,92,"常规材料")
       xsjbuy(36398030) 
