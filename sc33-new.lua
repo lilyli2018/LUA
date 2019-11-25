@@ -209,7 +209,7 @@ function XSJ()
       "  8  庄园",
       "  9  湖泊",
       "  返回到主菜单"
-   }, nil, "🔑  山村集团内部工具  🔑  刷材料(可以多选连续刷)  🔑")
+   }, nil, "🔑  刷材料(可以多选连续刷)  🔑")
   
    getSimoleons()
    
@@ -266,7 +266,7 @@ function Main()
    "6  快速建设",
    "7  开新地图",
    "退出"
-   }, nil,  "🔑  山村集团内部工具  🔑  新号速成  🔑")
+   }, nil,  "🔑  新号速成  🔑")
    if SN == 1 then shengji() end
    if SN == 2 then stoa() end
    if SN == 3 then shop() end
@@ -293,7 +293,7 @@ function kuisujianshe()
 end
 
 function Exit()    --退出程序
-    print("⚡⚡⚡ 山村集团，辅助工具，仅限内部，学习交流，禁止外传  ⚡⚡⚡ ")
+    print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
     os.exit()
 end
 
