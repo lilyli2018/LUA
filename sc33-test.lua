@@ -25,9 +25,9 @@ function getSimoleons()
    if(gg.getResultCount()==4) then
       local simoleonsAddress = gg.getResults(4)
 
-      simoleons.value = read(simoleonsAddress[1],gg.TYPE_DWORD)
-      simoleons.encrypt1 = read((simoleonsAddress[1]+0x8),gg.TYPE_DWORD)
-      simoleons.encrypt2 = read((simoleonsAddress[1]+0xC),gg.TYPE_DWORD)
+      simoleons[1] = read(simoleonsAddress[1],gg.TYPE_DWORD)
+      simoleons[2] = read((simoleonsAddress[1]+0x8),gg.TYPE_DWORD)
+      simoleons[3] = read((simoleonsAddress[1]+0xC),gg.TYPE_DWORD)
    end
 
    gg.toast("%d;%d;%d",simoleons.value,simoleons.encrypt1,simoleons.encrypt2)
@@ -136,16 +136,13 @@ function SMgetcode(SCnum1,SCnum2,SCNum,SCname)
       gg.alert(SCname.."代码初始化失败") 
       os.exit() 
    end
-   local tdr= gg.getResults(SCNum)
-   local materialCode
+	local tdr= gg.getResults(SCNum)
    for i = 1,string.format("%d",SCNum) do 
       tempcount = tempcount + 1
       salecode[tempcount] = {}     
       salecode[tempcount].flags = gg.TYPE_DWORD
       salecode[tempcount].value = string.format("%d",(tdr[i].address - 4)) 
-      materialCode = materialCode .. salecode[tempcount].value .. "\n"
    end 
-   gg.alert(materialCode)
 end
 	    
 function xsjbuy(NUM1)    
@@ -166,8 +163,7 @@ function xsjbuy(NUM1)
       for i = 1 , xsjgezi do   
          if read((shuliang[i].address + 0x58),gg.TYPE_DWORD) ~= 0 then   
             write((shuliang[i].address - 0x4),salecode[tempcount].value,false)
-            write((shuliang[i].address+0x58),"0",false) 
-            tempcount = tempcount - 1 
+            write((shuliang[i].address+0x58),"0",false) tempcount=tempcount-1 
          end
          if tempcount == 0 then       
             gg.toast('全部上架完毕！') 
@@ -179,12 +175,11 @@ end
 
 function xsjready()
    gg.setVisible(false)
-   gg.clearResults()  
-   gg.toast("新世纪的准备工作进行中......")
+   gg.clearResults()  gg.toast("新世纪的准备工作进行中......")
    gg.searchNumber('2;3;2;2,087,261,488D;30W;::167', gg.TYPE_DWORD)
    gg.searchNumber('30', gg.TYPE_WORD)
    local xsjr = gg.getResults(1)
-	local xsjtemp=read((xsjr[1].address + 258),gg.TYPE_DWORD)
+	local xsjtemp=read((xsjr[1].address+258),gg.TYPE_DWORD)
    gg.clearResults()  
    gg.toast("新世纪的准备工作进行中......")       
    gg.searchNumber('-2147483648 ~ -9999;1~99999;'..xsjtemp..'::9', gg.TYPE_DWORD)     
@@ -214,13 +209,13 @@ function XSJ()
       "  8  庄园",
       "  9  湖泊",
       "  返回到主菜单"
-   }, nil, "🔑  刷材料(可以多选连续刷)  🔑")
+   }, nil, "🔑  山村集团内部工具  🔑  刷材料(可以多选连续刷)  🔑")
   
    getSimoleons()
    
    if YJJ[1] == true then
       SMgetcode("%d;0;-2147483648~-2;-2147483648~-2;3;0::21",16,92,"常规材料")
-      --xsjbuy(36398030) 
+      xsjbuy(36398030) 
    end
    if YJJ[2] == true then
       SMgetcode("%d;0;17;0;65::33",51,11,"战争材料") 
@@ -271,7 +266,7 @@ function Main()
    "6  快速建设",
    "7  开新地图",
    "退出"
-   }, nil,  "🔑  新号速成  🔑")
+   }, nil,  "🔑  山村集团内部工具  🔑  新号速成  🔑")
    if SN == 1 then shengji() end
    if SN == 2 then stoa() end
    if SN == 3 then shop() end
@@ -298,7 +293,7 @@ function kuisujianshe()
 end
 
 function Exit()    --退出程序
-    print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
+    print("⚡⚡⚡ 山村集团，辅助工具，仅限内部，学习交流，禁止外传  ⚡⚡⚡ ")
     os.exit()
 end
 
