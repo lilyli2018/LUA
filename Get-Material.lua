@@ -17,6 +17,7 @@ local newMallOffset = {}
 local neoMallSearchInfo = {
     searchInfo = "2;3;2;2,087,261,488D;30W;::167",
     researchInfo = "30",
+    resetSearchInfo = "21600000",
     codeOffset = 258,
     totalGridCount = 8
 }
@@ -202,6 +203,8 @@ function getNeoMallGridInfo()
         os.exit()
     end
 
+    gg.clearResults()
+
     return grid
 end
 
@@ -234,8 +237,15 @@ function getValueArray(address)
 end
 
 function resetNeoMallGrid(gridInfo)
-    for i = 1, #gridInfo do
-        setAddressValue((gridInfo[i].address + NEOMALL_FROZEN_FLAG_OFFSET), gg.TYPE_DWORD, "0", false)
+    gg.setVisible(false)
+    gg.clearResults()  
+    gg.searchNumber(neoMallSearchInfo.resetSearchInfo, gg.TYPE_DWORD)
+    local result = gg.getResults()
+    local resultCount = gg.getResultCount()
+
+    for i = 1, resultCount do
+        --setAddressValue((gridInfo[i].address + NEOMALL_FROZEN_FLAG_OFFSET), gg.TYPE_DWORD, "0", false)
+        setAddressValue(result[i].address, gg.TYPE_DWORD, "0", false)
     end
 end
 
