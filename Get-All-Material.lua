@@ -105,7 +105,7 @@ function getSimoleons()
     local data = gg.prompt({'你目前的模拟币','你目前的绿钞'},{[1]="输入你的模拟币数",[2]="输入你的绿钞"})
 
     gg.clearResults()
-    gg.searchNumber(string.format("%d;%d::50",data[1],data[2]),gg.TYPE_DWORD)
+    gg.searchNumber(string.format("%d;%d::113",data[1],data[2]),gg.TYPE_DWORD)
     gg.searchNumber(string.format("%d",data[1]), gg.TYPE_DWORD)
     local simoleons = {}
     if(gg.getResultCount() == 2) then
@@ -142,10 +142,10 @@ function getMaterialInfo(searchInfo)
     gg.toast(searchInfo.name.."准备工作进行中 ......")
     gg.searchNumber(searchInfo.searchInfo, gg.TYPE_DWORD)
     gg.searchNumber(searchInfo.researchInfo, gg.TYPE_DWORD)
-    if gg.getResultCount() ~= searchInfo.totalCount then 
-       gg.alert(searchInfo.name.."代码初始化失败.") 
-       os.exit() 
-    end
+    --if gg.getResultCount() ~= searchInfo.totalCount then 
+    --   gg.alert(searchInfo.name.."代码初始化失败.") 
+    --   os.exit() 
+    --end
 
     local result = gg.getResults(searchInfo.totalCount)
     local materialCode = {}
@@ -252,17 +252,17 @@ end
 function materialOnSale(neoMallGridInfo, materialInfo)
     local valueONE = getValueArray(neoMallGridInfo[1].address + NEOMALL_QTY_OFFSET)
     -- 测试
-    -- gg.alert(string.format("%d;%d;%d",valueONE[1],valueONE[2],valueONE[3]))
+     gg.alert(string.format("%d;%d;%d",valueONE[1],valueONE[2],valueONE[3]))
     --
     local valueSimoleons = getSimoleons()
-
+    gg.alert(string.format("%d;%d;%d",valueSimoleons[1],valueSimoleons[2],valueSimoleons[3]))
     local materialCount = #materialInfo
 
     for i = 1, #neoMallGridInfo do
         -- 设置上架物品数量
         setMultiAddressValue((neoMallGridInfo[i].address + NEOMALL_QTY_OFFSET), gg.TYPE_DWORD, valueSimoleons, false) 
         -- 设置上架物品金额
-        setMultiAddressValue((neoMallGridInfo[i].address + NEOMALL_AMOUNT_OFFSET), gg.TYPE_DWORD, valueONE, false) -- ？？
+        setMultiAddressValue((neoMallGridInfo[i].address + NEOMALL_AMOUNT_OFFSET), gg.TYPE_DWORD, valueONE, true) -- ？？
 
         gg.toast("可以去新世纪买买买")  
         -- 设置材料代码
