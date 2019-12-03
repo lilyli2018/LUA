@@ -15,6 +15,56 @@ function write(dizhi,shujv,zhuangtai)
    
    return txr[1].value 
 end
+<<<<<<< HEAD
+   
+function BatchWrite(Address, Value, Status)
+   local tmp = {} tmp[1] = {} tmp[2] = {} tmp[3] = {}
+   
+   tmp[1].address, tmp[1].value, tmp[1].flags, tmp[1].freeze = Address, Value[1], gg.TYPE_DWORD, Status
+   tmp[2].address, tmp[2].value, tmp[2].flags, tmp[2].freeze = Address + 0x8, Value[2], gg.TYPE_DWORD, Status
+   tmp[3].address, tmp[3].value, tmp[3].flags, tmp[3].freeze = Address + 0x8, Value[3], gg.TYPE_DWORD, Status
+
+   gg.setValues(tmp)
+end
+
+function GetSimoleons()
+   gg.clearResults()
+   local simoleons = {}
+   local INPUT_CORRECT = false
+
+   while INPUT_CORRECT ~= true do
+      local prompt = gg.prompt({'输入当前的金币','输入当前的绿钞'},{[1]="金币数",[2]="绿钞数"})
+      
+      gg.searchNumber(string.format("%d;%d::50",prompt[1],prompt[2]),gg.TYPE_DWORD)
+
+      if(gg.getResultsCount() == 4) then
+         local tmp = gg.getResults(4)
+         simoleons[1] = read(tmp[1].address, gg.TYPE_DWORD)
+         simoleons[2] = read((tmp[1].address + 0x8), gg.TYPE_DWORD)
+         simoleons[3] = read((tmp[1].address + 0xC), gg.TYPE_DWORD)
+         
+         --gg.alert(string.format("%d;%d;%d",simoleons[1],simoleons[2],simoleons[3]))
+         INPUT_CORRECT = true
+      else
+         gg.alert('搜索出错，请检查你输入的数值')
+      end
+   end
+
+   return simoleons
+end
+
+function GetONEValue(Address)
+   local value = {}
+   --local tmp = {}
+   value[1] = read(Address, gg.TYPE_DWORD)
+   value[2] = read((Address + 0x8), gg.TYPE_DWORD)
+   value[3] = read((Address + 0xC), gg.TYPE_DWORD)
+   value[4] = read((Address + 0x10), gg.TYPE_DWORD)
+
+   gg.alert(string.format("%X:%d;%d;%d;%d",Address,value[1],value[2],value[3],value[4]))
+
+   return value
+=======
 
 function getSimoleons()
    local data = gg.prompt({'你目前的模拟币','你目前的绿钞'},{[1]="输入你的模拟币数",[2]="输入你的绿钞"})
@@ -31,6 +81,7 @@ function getSimoleons()
    end
 
    gg.toast("%d;%d;%d",simoleons.value,simoleons.encrypt1,simoleons.encrypt2)
+>>>>>>> bda4153f45660164c42074f3c09b946e5e9f1882
 end
 
 function shengji()
@@ -58,7 +109,7 @@ function shengji()
       gg.clearResults()                         
       gg.toast('成功修改，可以去升级房屋了')
                    
-   else gg.alert('搜索出错，请检查你输入的数值，或换一栋房屋升级') 
+      else gg.alert('搜索出错，请检查你输入的数值，或换一栋房屋升级') 
    end  
 end 
 
@@ -177,6 +228,36 @@ function xsjbuy(NUM1)
    end 
 end
 
+function NeoMallBuy(NUMBER)
+   for i=1,xsjgezi do
+      BatchWrite(shuliang[i].address, NUMBER, false) 
+
+      local ONE = 0
+      write((shuliang[i].address + 0x2C),"1",true) 
+      gg.toast("可以去新世纪买买买")  
+      write((shuliang[i].address - 0x4),salecode[tempcount].value,false)
+      write((shuliang[i].address + 0x58),"0",false) 
+      tempcount = tempcount - 1     
+      while tempcount == 0 do 
+         gg.toast('全部上架完毕！') 
+         return 
+      end 
+   end     
+   
+   while (true) do  
+      for i = 1 , xsjgezi do   
+         if read((shuliang[i].address + 0x58),gg.TYPE_DWORD) ~= 0 then   
+            write((shuliang[i].address - 0x4),salecode[tempcount].value,false)
+            write((shuliang[i].address + 0x58),"0",false) tempcount=tempcount-1 
+         end
+         if tempcount == 0 then       
+            gg.toast('全部上架完毕！') 
+            return    
+         end 
+      end 
+   end 
+end
+
 function xsjready()
    gg.setVisible(false)
    gg.clearResults()  
@@ -202,7 +283,10 @@ end
 
 function XSJ()
    if xsjpd then xsjready() end
-  
+   
+   local simoleons = GetSimoleons()
+   local oneValue = GetONEValue(shuliang[1].address)
+
    YJJ = gg.multiChoice({
       "  1  92种常规材料",
       "  2  11种战争材料",
@@ -260,7 +344,28 @@ function XSJ()
    end 
 end
 
+function kuisujianshe()
+   local shancunjt =gg.alert('已经开始建造机场，码头，博士大楼。 \n 我想让它立即建设完成。不想等待了。',"       [✈✈✈  立刻建设完成  ✈✈✈]","[我还没开始建造，先回主菜单]           ")
+   if shancunjt == 2 then Main() end	
+   if shancunjt == 1 then 
+      gg.clearResults()  
+      gg.setVisible(false) 
+	   gg.searchNumber("2;4;1000::17",gg.TYPE_DWORD)
+      local t=gg.getResults(10) 	
+      write(t[1].address+8,0,false)
+      gg.toast("建设已完成") 	
+      gg.clearResults() 
+   end 
+end
 
+<<<<<<< HEAD
+function Exit()    --退出程序
+    print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
+    os.exit()
+end
+
+=======
+>>>>>>> bda4153f45660164c42074f3c09b946e5e9f1882
 function Main()
    SN = gg.choice({
    "1  快速升级",
@@ -280,6 +385,9 @@ function Main()
    if SN == 6 then kuisujianshe() end
    if SN == 7 then submap() end
    if SN == 8 then Exit() end
+<<<<<<< HEAD
+   runFlag = 'Quit'  
+=======
    runFlag = '山村'  
 end
 
@@ -300,6 +408,7 @@ end
 function Exit()    --退出程序
     print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
     os.exit()
+>>>>>>> bda4153f45660164c42074f3c09b946e5e9f1882
 end
 
 while true do

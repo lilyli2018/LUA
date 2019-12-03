@@ -17,6 +17,7 @@ local newMallOffset = {}
 local neoMallSearchInfo = {
     searchInfo = "2;3;2;2,087,261,488D;30W;::167",
     researchInfo = "30",
+    resetSearchInfo = "21600000",
     codeOffset = 258,
     totalGridCount = 8
 }
@@ -201,6 +202,8 @@ function getNeoMallGridInfo()
         gg.alert(string.format("新世纪格子数量不正确。%d : %d", gridCount, NEOMALL_GRID_COUNT))
         os.exit()
     end
+
+    gg.clearResults()
 
     return grid
 end
