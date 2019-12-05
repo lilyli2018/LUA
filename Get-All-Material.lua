@@ -105,33 +105,42 @@ function getSimoleons()
     local data = gg.prompt({'你目前的模拟币','你目前的绿钞'},{[1]="输入你的模拟币数",[2]="输入你的绿钞"})
 
     gg.clearResults()
-    gg.searchNumber(string.format("%d;%d::50",data[1],data[2]),gg.TYPE_DWORD)
+    gg.searchNumber(string.format("%d;%d::113",data[1],data[2]),gg.TYPE_DWORD)
     gg.searchNumber(string.format("%d",data[1]), gg.TYPE_DWORD)
     local simoleons = {}
-    if(gg.getResultCount() == 2) then
-        local temp = gg.getResults(2)
-        
-        local tempCash = getAddressValue((temp[1].address + SIMOCASH_OFFSET), gg.TYPE_DWORD)
-        -- 
-        -- gg.alert(string.format("绿钞数: %d", tempCash))
-        --
-        local simoleonsAddress
+    local temp = {}
+    local index = 0
+    local count = gg.getResultCount()
+    --local simoleonsAddress = {}
+    if(count == 0) then
+        gg.alert("模拟币的地址和加密值未找到，脚本退出。")
+        os.exit()
+    end
 
-        if tempCash == data[2] then
-            simoleonsAddress = temp[1]
-        else
-            simoleonsAddress = temp[2]
-        end
+    gg.alert(string.format("找到模拟币地址%d个。", count))
+    temp = gg.getResults(count)
+
+    for i = 1, count do       
+        local tempCash = getAddressValue((temp[i].address + SIMOCASH_OFFSET), gg.TYPE_DWORD)
+        -- 
+        gg.alert(string.format("偏移地址的绿钞数: %d", tempCash))      --
         
-        for i = 1, #valueOffset do
-            simoleons[i] = getAddressValue((simoleonsAddress.address + valueOffset[i]),gg.TYPE_DWORD)
+        -- 定位正确的模拟币地址
+        if tempCash == data[2] then
+            index = i
+            break
         end
+    end    
+       
+    for i = 1, #valueOffset do
+        simoleons[i] = getAddressValue((temp[index].address + valueOffset[i]),gg.TYPE_DWORD)
+    end
         --simoleons[1] = getAddressValue(simoleonsAddress[1],gg.TYPE_DWORD)
         --simoleons[2] = getAddressValue((simoleonsAddress[1]+0x8),gg.TYPE_DWORD)
         --simoleons[3] = getAddressValue((simoleonsAddress[1]+0xC),gg.TYPE_DWORD)
-    end
+    
     -- 测试
-    --gg.alert(string.format("模拟币: %d; %d; %d",simoleons[1],simoleons[2],simoleons[3]))
+    gg.alert(string.format("模拟币: %d; %d; %d",simoleons[1],simoleons[2],simoleons[3]))
     --
     return simoleons
 end
@@ -139,7 +148,7 @@ end
 function getMaterialInfo(searchInfo)
     gg.setVisible(false) 
     gg.clearResults()  
-    gg.toast(searchInfo.name.."准备工作进行中 ......")
+    gg.toast(searchInfo.name.."的准备工作正在进行中 ...")
     gg.searchNumber(searchInfo.searchInfo, gg.TYPE_DWORD)
     gg.searchNumber(searchInfo.researchInfo, gg.TYPE_DWORD)
     --if gg.getResultCount() ~= searchInfo.totalCount then 
@@ -173,7 +182,7 @@ end
 function getNeoMallGridInfo()
     gg.setVisible(false)
     gg.clearResults()  
-    gg.toast("新世纪的准备工作正在进行中......")
+    gg.toast("新世纪商城的准备工作正在进行中 ...")
     gg.searchNumber(neoMallSearchInfo.searchInfo, gg.TYPE_DWORD)
     gg.searchNumber(neoMallSearchInfo.researchInfo, gg.TYPE_WORD)
     local result = gg.getResults(1)
@@ -182,7 +191,7 @@ function getNeoMallGridInfo()
     gg.alert(string.format("新世纪特征代码：%d", neoMallCode))
     --
     gg.clearResults()  
-    gg.toast("新世纪的准备工作正在进行中......")
+    gg.toast("新世纪商城的准备工作正在进行中 ...")
     gg.searchNumber('1;'..neoMallCode..'::20', gg.TYPE_DWORD)
     gg.searchNumber(neoMallCode, gg.TYPE_DWORD)
 
@@ -199,7 +208,7 @@ function getNeoMallGridInfo()
     end
 
     if gridCount > NEOMALL_GRID_COUNT then
-        gg.alert(string.format("新世纪格子数量不正确。%d : %d", gridCount, NEOMALL_GRID_COUNT))
+        gg.alert(string.format("新世纪商城的格子数量不正确。%d : %d", gridCount, NEOMALL_GRID_COUNT))
         os.exit()
     end
 
@@ -252,12 +261,10 @@ end
 function materialOnSale(neoMallGridInfo, materialInfo)
     local valueONE = getValueArray(neoMallGridInfo[1].address + NEOMALL_QTY_OFFSET)
     -- 测试
-    gg.alert(string.format("%d;%d;%d",valueONE[1],valueONE[2],valueONE[3]))
+     gg.alert(string.format("%d; %d; %d",valueONE[1],valueONE[2],valueONE[3]))
     --
     local valueSimoleons = getSimoleons()
-
-    gg.alert(string.format("%d;%d;%d",valueSimoleons[1],valueSimoleons[2],valueSimoleons[3]))
-
+    gg.alert(string.format("%d; %d; %d",valueSimoleons[1],valueSimoleons[2],valueSimoleons[3]))
     local materialCount = #materialInfo
 
     for i = 1, #neoMallGridInfo do
@@ -266,7 +273,7 @@ function materialOnSale(neoMallGridInfo, materialInfo)
         -- 设置上架物品金额
         setMultiAddressValue((neoMallGridInfo[i].address + NEOMALL_AMOUNT_OFFSET), gg.TYPE_DWORD, valueONE, true) -- ？？
 
-        gg.toast("可以去新世纪买买买")  
+        gg.toast("可以去新世纪买买买了！")  
         -- 设置材料代码
         setAddressValue((neoMallGridInfo[i].address + NEOMALL_MATERIAL_CODE_OFFSET), gg.TYPE_DWORD, materialInfo[materialCount].value, false)
         -- 设置冻结标志
@@ -274,7 +281,7 @@ function materialOnSale(neoMallGridInfo, materialInfo)
 
         materialCount = materialCount - 1     
         while materialCount == 0 do 
-           gg.toast('全部上架完毕！') 
+           gg.toast('全部材料上架完毕！') 
            return 
         end 
     end 
@@ -289,7 +296,7 @@ function materialOnSale(neoMallGridInfo, materialInfo)
                 materialCount = materialCount - 1 
            end
            if materialCount == 0 then       
-              gg.toast('全部上架完毕！') 
+              gg.toast('全部材料上架完毕！') 
               return    
            end 
         end 
@@ -330,7 +337,7 @@ function main()
     -- 获取新世纪格子信息
     local neoMallGridInfo = getNeoMallGridInfo()
     gg.toast("成功获取新世纪格子信息！")
-    --gg.alert(string.format("材料数量：%d", #allMaterials))
+    gg.alert(string.format("新世纪商城格子数量：%d", #neoMallGridInfo))
     -- 材料上架
     materialOnSale(neoMallGridInfo, allMaterials)
     
