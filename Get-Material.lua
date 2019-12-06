@@ -113,7 +113,7 @@ function getSimoleons()
         
         local tempCash = getAddressValue((temp[1].address + SIMOCASH_OFFSET), gg.TYPE_DWORD)
         -- 
-        gg.alert(string.format("绿钞数: %d", tempCash))
+        --gg.alert(string.format("绿钞数: %d", tempCash))
         --
         local simoleonsAddress
 
@@ -131,7 +131,7 @@ function getSimoleons()
         --simoleons[3] = getAddressValue((simoleonsAddress[1]+0xC),gg.TYPE_DWORD)
     end
     -- 测试
-    gg.alert(string.format("模拟币: %d; %d; %d",simoleons[1],simoleons[2],simoleons[3]))
+    --gg.alert(string.format("模拟币: %d; %d; %d",simoleons[1],simoleons[2],simoleons[3]))
     --
     return simoleons
 end
@@ -164,7 +164,7 @@ function getMaterialInfo(searchInfo)
     end 
 
     -- 测试
-    gg.alert(printOut)
+    --gg.alert(printOut)
     --
     return materialCode
 end
@@ -179,7 +179,7 @@ function getNeoMallGridInfo()
     local result = gg.getResults(1)
     local neoMallCode = getAddressValue((result[1].address + neoMallSearchInfo.codeOffset), gg.TYPE_DWORD)   
     -- 测试
-    gg.alert(string.format("新世纪特征代码：%d", neoMallCode))
+    --gg.alert(string.format("新世纪特征代码：%d", neoMallCode))
     --
     gg.clearResults()  
     gg.toast("新世纪的准备工作正在进行中......")
@@ -237,22 +237,15 @@ function getValueArray(address)
 end
 
 function resetNeoMallGrid(gridInfo)
-    gg.setVisible(false)
-    gg.clearResults()  
-    gg.searchNumber(neoMallSearchInfo.resetSearchInfo, gg.TYPE_DWORD)
-    local result = gg.getResults()
-    local resultCount = gg.getResultCount()
-
-    for i = 1, resultCount do
-        --setAddressValue((gridInfo[i].address + NEOMALL_FROZEN_FLAG_OFFSET), gg.TYPE_DWORD, "0", false)
-        setAddressValue(result[i].address, gg.TYPE_DWORD, "0", false)
+    for i = 1, #gridInfo do
+        setAddressValue((gridInfo[i].address + NEOMALL_FROZEN_FLAG_OFFSET), gg.TYPE_DWORD, "0", false)
     end
 end
 
 function materialOnSale(neoMallGridInfo, materialInfo)
     local valueONE = getValueArray(neoMallGridInfo[1].address + NEOMALL_QTY_OFFSET)
     -- 测试
-    gg.alert(string.format("%d;%d;%d",valueONE[1],valueONE[2],valueONE[3]))
+    --gg.alert(string.format("%d;%d;%d",valueONE[1],valueONE[2],valueONE[3]))
     --
     local valueSimoleons = getSimoleons()
 
