@@ -307,14 +307,6 @@ function kuisujianshe()
    end 
 end
 
-<<<<<<< HEAD
-function Exit()    --退出程序
-    print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
-    os.exit()
-end
-
-=======
->>>>>>> bda4153f45660164c42074f3c09b946e5e9f1882
 function Main()
    SN = gg.choice({
    "1  快速升级",
@@ -334,9 +326,6 @@ function Main()
    if SN == 6 then kuisujianshe() end
    if SN == 7 then submap() end
    if SN == 8 then Exit() end
-<<<<<<< HEAD
-   runFlag = 'Quit'  
-=======
    runFlag = '山村'  
 end
 
@@ -357,7 +346,6 @@ end
 function Exit()    --退出程序
     print("⚡⚡⚡ 辅助工具，仅限内部学习交流，禁止外传  ⚡⚡⚡ ")
     os.exit()
->>>>>>> bda4153f45660164c42074f3c09b946e5e9f1882
 end
 
 while true do
