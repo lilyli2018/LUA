@@ -131,7 +131,7 @@ function getSimoleons()
             break
         end
     end    
-       
+    
     -- 找不到金币地址
     if (index == 0) then
         gg.alert("模拟币的地址和加密值未找到，脚本退出。")
