@@ -130,14 +130,9 @@ function getSimoleons()
             break
         end
     end    
-<<<<<<< HEAD
     
     -- 找不到金币地址
     if (index == 0) then
-=======
-       
-    if(index == 0) then
->>>>>>> 9d819d2ddbbc78e79d36c1d2afb05961e6100eed
         gg.alert("模拟币的地址和加密值未找到，脚本退出。")
         os.exit()
     end
