@@ -108,7 +108,7 @@ function getSimoleons()
     gg.searchNumber(string.format("%d",data[1]), gg.TYPE_DWORD)
     local simoleons = {}
     local temp = {}
-    local index
+    local index = 0
     local count = gg.getResultCount()
     --local simoleonsAddress = {}
     if(count == 0) then
@@ -130,8 +130,9 @@ function getSimoleons()
             break
         end
     end    
-       
-    if(index == 0) then
+    
+    -- 找不到金币地址
+    if (index == 0) then
         gg.alert("模拟币的地址和加密值未找到，脚本退出。")
         os.exit()
     end
@@ -192,7 +193,7 @@ function getNeoMallGridInfo()
     local result = gg.getResults(1)
     local neoMallCode = getAddressValue((result[1].address + neoMallSearchInfo.codeOffset), gg.TYPE_DWORD)   
     -- 测试
-    -- gg.alert(string.format("新世纪特征代码：%d", neoMallCode))
+    gg.alert(string.format("新世纪特征代码：%d", neoMallCode))
     --
     gg.clearResults()  
     gg.toast("新世纪商城的准备工作正在进行中 ...")
