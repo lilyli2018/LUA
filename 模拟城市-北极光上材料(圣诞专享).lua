@@ -78,7 +78,7 @@ local selectInfo_1 = {
     "3. 博士材料",
     "4. 沙滩材料",
     "5. 高山材料",
-    "6. 汉堡包3/面包卷2/甜甜圈1",
+    "6. 披萨5/三明治5",
     "7. 玩具马，节日装饰品，糖果手杖,姜饼，节日饰品",
     "8. 姜饼，节日饰品",
     "9. 阳光岛屿",
@@ -172,17 +172,15 @@ local materialSearchInfo = {
             {itemSearchInfo = "745632331", itemCount = 4}
         }
     },
-    -- 汉堡包3/面包卷2/甜甜圈1
+    -- 披萨5/三明治5
     {
         index = 6,
         searchInfo = "16;0;3;0;33~65;25~43::33",
         researchInfo = "16",
         totalCount = 6,
         itemInfo = {
-            {itemSearchInfo = "-1799384545",itemCount = 3}
-,
-            {itemSearchInfo = "123794044",itemCount = 2},
-            {itemSearchInfo = "-113650078",itemCount = 1}
+            {itemSearchInfo = "270885747",itemCount = 5},
+            {itemSearchInfo = "-712060721",itemCount = 5}
         }
     },
     -- 玩具，节日装饰品，糖果手杖
