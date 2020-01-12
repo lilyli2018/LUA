@@ -78,7 +78,7 @@ local selectInfo_1 = {
     "3. 博士材料",
     "4. 沙滩材料",
     "5. 高山材料",
-    "6. 三明治5/披萨5",
+    "6. 汉堡",
     "7. 绿色山谷",
     "8. 仙人掌峡谷",
     "9. 阳光岛屿",
@@ -172,15 +172,15 @@ local materialSearchInfo = {
             {itemSearchInfo = "745632331", itemCount = 4}
         }
     },
-    -- 三明治5/披萨5
+    -- 汉堡
     {
         index = 6,
         searchInfo = "16;0;3;0;33~65;25~43::33",
         researchInfo = "16",
-        totalCount = 10,
+        totalCount = 5,
         itemInfo = {
-            {itemSearchInfo = "-712060721", itemCount = 5},
-            {itemSearchInfo = "270885747",itemCount = 5}
+            {itemSearchInfo = "-1799384545", itemCount = 5},
+            {itemSearchInfo = "270885747",itemCount = 0}
         }
     },
     -- 绿色山谷
