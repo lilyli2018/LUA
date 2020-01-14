@@ -5,7 +5,7 @@
 -- 4. 本脚本需要断网操作；
 -- 5. 本脚本得到了绿城的全力支持，并无私提供各种资料参考，特致谢意！
 -- 6。更新了全材料数量，因为官方对金币超过二千三百万作了封禁;
--- 7. 最后更新时间：2019年12月13日
+-- 7. 最后更新时间：2019年12月25日
 ---------------------------------------------------------------------------------------------------
 
 -- 新世纪代码偏移量
@@ -18,6 +18,7 @@ local NEOMALL_QTY_ENCRYPTION2_OFFSET = -4
 local NEOMALL_MATERIAL_CODE_OFFSET = -24
 local MATERIAL_CODE_OFFSET  = 4
 local SIMOCASH_OFFSET = 16 -- 搜索金币；绿钞时，绿钞的偏移量
+local MAX_MATERIAL_COUNT = 238
 
 
 local valueOffset = {0, 8, 12}
@@ -33,7 +34,7 @@ local neoMallSearchInfo = {
 }
 
 local selectionInfo = {
-    "   1. 92种普通材料 + 12种战争材料 + 15种扩展材料",
+    "   1. 12种战争材料",
     "   2. 18种战争加成器",
     "   3. 退出"
 }
@@ -52,7 +53,7 @@ local materialSearchInfo = {
         name = "普通材料",
         searchInfo = "16;0;-2147483648~-2;-2147483648~-2;3;0::21",
         researchInfo = "16",
-        totalCount = 97
+        totalCount = 92
     },
 
     -- 战争材料
@@ -342,27 +343,32 @@ function main()
     selectedIndex = getSelectionInfo()
     
     local allMaterials = {}
-    if (selectedIndex == 1) then  -- 全材料搜索
+    if (selectedIndex == 1) then  -- 战争材料搜索
         local materialIndex = 1
-        for i = 1, 3 do
-            -- 获取搜索条件
-            --local searchInfo = getSearchInfo(selectedIndex)
-            local searchInfo = getSearchInfo(i)
-            gg.toast("成功获取材料搜索信息！")
+        --for i = 1, 3 do
+        -- 获取搜索条件
+        --local searchInfo = getSearchInfo(selectedIndex)
+        local searchInfo = getSearchInfo(2)
+        gg.toast("成功获取材料搜索信息！")
 
-            -- 获取材料代码
-            local materialInfo = getMaterialInfo(searchInfo)
-            gg.toast("成功获取材料代码信息！")
+        -- 获取材料代码
+        local materialInfo = getMaterialInfo(searchInfo)
+        gg.toast("成功获取材料代码信息！")
 
+        while (materialIndex <= MAX_MATERIAL_COUNT) do
             for j = 1, #materialInfo do
-                allMaterials[materialIndex] = materialInfo[j]
-                allMaterials[materialIndex + 1] = materialInfo[j]
-                materialIndex = materialIndex + 2
+                if(materialIndex > MAX_MATERIAL_COUNT) then
+                    break
+                end                
+                allMaterials[materialIndex] = materialInfo[j]                
+                materialIndex = materialIndex + 1
             end
-            -- 材料上架
-            --materialOnSale(neoMallGridInfo, materialInfo)
-            --gg.alert("您取消了本操作")
-        end    
+        end
+
+        -- 材料上架
+        --materialOnSale(neoMallGridInfo, materialInfo)
+        --gg.alert("您取消了本操作")
+        --end    
     end
     
 
