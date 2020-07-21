@@ -18,7 +18,7 @@ local NEOMALL_QTY_ENCRYPTION2_OFFSET = -4
 local NEOMALL_MATERIAL_CODE_OFFSET = -24
 local MATERIAL_CODE_OFFSET  = 4
 local SIMOCASH_OFFSET = 16 -- 搜索金币；绿钞时，绿钞的偏移量
-local MAX_MATERIAL_COUNT = 248
+local MAX_MATERIAL_COUNT = 238
 
 
 local valueOffset = {0, 8, 12}

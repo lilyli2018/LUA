@@ -1,4 +1,4 @@
-﻿--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 -- 1、本脚本为交易站上架半自动脚本
 -- 2、本脚本在0.31版国服，1.28版国际服下测试通过
 -- 3、已知问题：偶发性会报 -- 获取交易站信息失败！的错误，出现改错误时，请重新进入游戏重试
@@ -52,7 +52,6 @@ local INDEX_MATERIAL_CODE = 5
 
 --售卖价格
 local SELL_PRICE = 0
-local FIXED_PRICE = 700
 
 --售卖价格变动最大系数
 local SELL_PRICE_MAX_TIMES = 20
@@ -74,15 +73,32 @@ local STOP_CODE = 13
 
 -- 一级菜单选项
 local selectInfo_1 = {
-
-    "1. 磁力之击(望远镜*1->消防栓*2->铁砧*2 循环)",
-    "2. 滑稽之手(疏通塞*1->橡胶鸭*1 循环)",
-    "3. 死神之手(军火*2->橡皮鸭*2->钳子*5 循环)",
-    "4. 修建传送门(消防栓*3->疏通塞*3->螺旋桨*4 循环)",
-    "5. B级电影怪兽(橡胶靴*2->疏通塞*2->扬声器*2 循环)",
-    "6. 响亮怒吼(扬声器*4->钳子*3->螺旋桨*4 循环)",
-    "7. 护盾破坏者(扬声器*4->钳子*3->螺旋桨*4 循环)",
-    "8. 退出"
+    "1. 仓库材料",
+    "2. 扩地材料",
+    "3. 博士材料",
+    "4. 沙滩材料",
+    "5. 高山材料",
+    "6. 披萨5/三明治5",
+    "7. 玩具马，节日装饰品，糖果手杖,姜饼，节日饰品",
+    "8. 姜饼，节日饰品",
+    "9. 阳光岛屿",
+    "10. 严寒峡湾",
+    "11. 石灰岩峭壁",
+    "12. 战争灾难物资 ->",
+    "13. 退出"
+}
+-- 二级菜单选项
+local selectInfo_2 = {
+    "1. 磁力之击",
+    "2. 滑稽之手",
+    "3. 死神之手",
+    "4. 修建传送门",
+    "5. B级电影怪兽",
+    "6. 响亮怒吼",
+    "7. 蟒蛇",
+    "8. 飞行的v机器人",
+    "9. 破盾",
+    "10. 退出"
 }
 
 --材料搜索信息表
@@ -96,10 +112,142 @@ local materialSearchInfo = {
     --    itemSearchInfo：材料的查找字符串
     --    itemCount：材料的组数
 
-   
-    -- 磁力之击
+    -- 仓库材料
     {
         index = 1,
+        searchInfo = "24;0;5;0;49;32;18::45",
+        researchInfo = "24",
+        totalCount = 12,
+        itemInfo = {
+            {itemSearchInfo = "13285930", itemCount = 4},
+            {itemSearchInfo = "543978041", itemCount = 4},
+            {itemSearchInfo = "21080992", itemCount = 4}
+        }
+    },
+    -- 扩地材料
+    {
+        index = 2,
+        searchInfo = "24;0;5;0;33;27::33",
+        researchInfo = "24",
+        totalCount = 12,
+        itemInfo = {
+            {itemSearchInfo = "12777566", itemCount = 4},
+            {itemSearchInfo = "1206566498", itemCount = 4},
+            {itemSearchInfo = "-1227768711", itemCount = 4}
+        }
+    },
+    -- 博士材料
+    {
+        index = 3,
+        searchInfo = "24;0;5;0;49;32;20::45",
+        researchInfo = "24",
+        totalCount = 12,
+        itemInfo = {
+            {itemSearchInfo = "-520565565", itemCount = 4},
+            {itemSearchInfo = "-2038227", itemCount = 4},
+            {itemSearchInfo = "112710515", itemCount = 4}
+        }
+    },
+    -- 沙滩材料
+    {
+        index = 4,
+        searchInfo = "24;0;5;0;33;28::33",
+        researchInfo = "24",
+        totalCount = 12,
+        itemInfo = {
+            {itemSearchInfo = "265268177", itemCount = 4},
+            {itemSearchInfo = "265268178", itemCount = 4},
+            {itemSearchInfo = "265268179", itemCount = 4}
+        }
+    },
+    -- 高山材料
+    {
+        index = 5,
+        searchInfo = "24;0;5;0;33;31::33",
+        researchInfo = "24",
+        totalCount = 12,
+        itemInfo = {
+            {itemSearchInfo = "745632329", itemCount = 4},
+            {itemSearchInfo = "745632330", itemCount = 4},
+            {itemSearchInfo = "745632331", itemCount = 4}
+        }
+    },
+    -- 披萨5/三明治5
+    {
+        index = 6,
+        searchInfo = "16;0;3;0;33~65;25~43::33",
+        researchInfo = "16",
+        totalCount = 10,
+        itemInfo = {
+            {itemSearchInfo = "270885747",itemCount = 5},
+            {itemSearchInfo = "-712060721",itemCount = 5},
+            {itemSearchInfo = "-113650078",itemCount = 0}
+        }
+    },
+    -- 玩具，节日装饰品，糖果手杖
+    {
+        index = 7,
+        searchInfo = "16;0;3;0;33~66;25~55::33",
+        researchInfo = "16",
+        totalCount = 5,
+        itemInfo = {
+            {itemSearchInfo = "2090767284",itemCount = 1},
+            {itemSearchInfo = "614594674",itemCount = 1},
+            {itemSearchInfo = "-2000852277",itemCount = 1},
+            {itemSearchInfo = "1661902171",itemCount = 1},
+            {itemSearchInfo = "-942334081",itemCount = 1}
+        }
+    },
+    -- 曲奇，节日装饰
+    {
+        index = 8,
+        searchInfo = "16;0;3;0;33~66;25~55::33",
+        researchInfo = "16",
+        totalCount = 2,
+        itemInfo = {
+            {itemSearchInfo = "1661902171", itemCount = 1},
+            {itemSearchInfo = "-942334081", itemCount = 1}
+        }
+    },
+    -- 阳光岛屿
+    {
+        index = 9,
+        searchInfo = "16;0;3;0;33~65;25~43::33",
+        researchInfo = "16",
+        totalCount = 22,
+        itemInfo = {
+            {itemSearchInfo = "248304484", itemCount = 1},
+            {itemSearchInfo = "-1740539876", itemCount = 1},
+            {itemSearchInfo = "449644219", itemCount = 20}
+        }
+    },
+    -- 严寒峡湾
+    {
+        index = 10,
+        searchInfo = "16;0;3;0;33~65;25~43::33",
+        researchInfo = "16",
+        totalCount = 22,
+        itemInfo = {
+            {itemSearchInfo = "1939782264", itemCount = 1},
+            {itemSearchInfo = "1148007126", itemCount = 1},
+            {itemSearchInfo = "1321484032", itemCount = 20}
+        }
+    },
+    -- 石灰岩峭壁
+    {
+        index = 11,
+        searchInfo = "16;0;3;0;33~65;25~43::33",
+        researchInfo = "16",
+        totalCount = 22,
+        itemInfo = {
+            {itemSearchInfo = "479440892", itemCount = 1},
+            {itemSearchInfo = "193491386", itemCount = 1},
+            {itemSearchInfo = "2090694637", itemCount = 20}
+        }
+    },
+    -- 磁力之击
+    {
+        index = 101,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
         totalCount = 5,
@@ -111,7 +259,7 @@ local materialSearchInfo = {
     },
     -- 滑稽之手
     {
-        index = 2,
+        index = 102,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
         totalCount = 2,
@@ -122,10 +270,10 @@ local materialSearchInfo = {
     },
     -- 死神之手
     {
-        index = 3,
+        index = 103,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
-        totalCount = 6,
+        totalCount = 9,
         itemInfo = {
             {itemSearchInfo = "2090081903", itemCount = 2},
             {itemSearchInfo = "352219700", itemCount = 2},
@@ -134,7 +282,7 @@ local materialSearchInfo = {
     },
     -- 修建传送门
     {
-        index = 4,
+        index = 104,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
         totalCount = 10,
@@ -146,7 +294,7 @@ local materialSearchInfo = {
     },
     -- B级电影怪兽
     {
-        index = 5,
+        index = 105,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
         totalCount = 6,
@@ -158,7 +306,7 @@ local materialSearchInfo = {
     },
     -- 响亮怒吼
     {
-        index = 6,
+        index = 106,
         searchInfo = "51;0;17;0;65::29",
         researchInfo = "51",
         totalCount = 11,
@@ -166,18 +314,41 @@ local materialSearchInfo = {
             {itemSearchInfo = "-1540742631", itemCount = 4},
             {itemSearchInfo = "352219700", itemCount = 3},
             {itemSearchInfo = "-1962827238", itemCount = 4}
-      }
+        }
     },
-    -- 护盾破坏者
+    -- 蟒蛇
     {
-        index = 7,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
-        totalCount = 6,
+        index = 107,
+        searchInfo ="51;0;17;0;65::29",
+        resarchInfo = "51",
+        totalCount = 8,
         itemInfo = {
-            {itemSearchInfo = "-916988905", itemCount = 3},
-            {itemSearchInfo = "-1962827238", itemCount = 2},
-            {itemSearchInfo = "226338627", itemCount = 1}
+            {itemSearchInfo = "1560176023",itemCount = 2},
+            {itemSearchInfo = "352219700",itemCount = 3},
+            {itemSearchInfo = "-1607480754",itemCount = 3}
+        }
+    },
+    -- 飞行的v机器人
+    {
+        index = 108,
+        searchInfo = "51;0;17;0;65::29",
+        resarchInfo = "51",
+        totalCiunt = 2,
+        itemInfo = {
+            {itemSearchInfo = "2090081903",itemCount = 1},
+            {itemSearchInfo = "-916988905",itemCount = 1}
+        }
+    },
+    -- 破盾
+    {
+        index = 109,
+        searchInfo ="51;0;17;0;65::29",
+        resarchInfo = "51",
+        totalCiunt = 7,
+        itemInfo = {
+            {itemSearchInfo = "-916988905",itemCount = 3},
+            {itemSearchInfo = "-1962827238",itemCount = 3},
+            {itemSearchInfo = "226338627",itemCount= 1}
         }
     }
 }
@@ -231,9 +402,9 @@ end
 -- 通过选项值获取对用的搜索信息内容。一级菜单的倍数为1，二级菜单的倍数为100
 -- 返回的索引值，索引值=选择索引*倍数
 function getSelectIndex()
-    index = gg.choice(selectInfo_1, nil, "模拟城市")
+    index = gg.choice(selectInfo_1, nil, "模拟城市-北极光")
     if index == #selectInfo_1 - 1 then
-        index = gg.choice(selectInfo_2, nil, "模拟城市")
+        index = gg.choice(selectInfo_2, nil, "模拟城市-北极光")
         if index ~= nil then
             index = 100 + index
         end
@@ -336,8 +507,7 @@ function runMe()
     gg.clearResults()
     -- 初始化售卖价格，价格变动范围在(1~SELL_PRICE_MAX_TIMES)*SELL_ITEM_COUNT之间，步长为SELL_ITEM_COUNT
     math.randomseed(os.time())
-    --SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
-    SELL_PRICE = SELL_ITEM_COUNT * FIXED_PRICE
+    SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
     --选择要上架的材料信息
     local selectedIndex = getSelectIndex()
     if selectedIndex ~= nil and selectedIndex ~= #selectInfo_1 and selectedIndex ~= (100 + #selectInfo_2) then
