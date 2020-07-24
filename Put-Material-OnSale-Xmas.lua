@@ -80,7 +80,7 @@ local selectInfo_1 = {
     "5. 高山材料",
     "6. 披萨5/三明治5",
     "7. 玩具马，节日装饰品，糖果手杖,姜饼，节日饰品",
-    "8. 姜饼，节日饰品",
+    "8. 甜甜圈",
     "9. 阳光岛屿",
     "10. 严寒峡湾",
     "11. 石灰岩峭壁",
@@ -197,15 +197,15 @@ local materialSearchInfo = {
             {itemSearchInfo = "-942334081",itemCount = 1}
         }
     },
-    -- 曲奇，节日装饰
+    -- 甜甜圈
     {
         index = 8,
         searchInfo = "16;0;3;0;33~66;25~55::33",
         researchInfo = "16",
-        totalCount = 2,
+        totalCount = 1,
         itemInfo = {
-            {itemSearchInfo = "1661902171", itemCount = 1},
-            {itemSearchInfo = "-942334081", itemCount = 1}
+            {itemSearchInfo = "-113650078", itemCount = 1},
+            {itemSearchInfo = "-942334081", itemCount = 0}
         }
     },
     -- 阳光岛屿
