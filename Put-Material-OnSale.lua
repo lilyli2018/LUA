@@ -69,7 +69,11 @@ local MATERIAL_CODE_OFFSET = -4
 local EIGENVALUE_OFFSET = 40
 
 -- 程序终止代码
+<<<<<<< HEAD
 local STOP_CODE = 999
+=======
+local STOP_CODE = 700
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
 
 -- 一级菜单选项
 local selectInfo_1 = {
@@ -400,9 +404,15 @@ end
 -- 通过选项值获取对用的搜索信息内容。一级菜单的倍数为1，二级菜单的倍数为100
 -- 返回的索引值，索引值=选择索引*倍数
 function getSelectIndex()
+<<<<<<< HEAD
     index = gg.choice(selectInfo_1, nil, "模拟城市")
     if index == #selectInfo_1 - 1 then
         index = gg.choice(selectInfo_2, nil, "模拟城市")
+=======
+    index = gg.choice(selectInfo_1, nil, "模拟城市-北极光")
+    if index == #selectInfo_1 - 1 then
+        index = gg.choice(selectInfo_2, nil, "模拟城市-北极光")
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
         if index ~= nil then
             index = 100 + index
         end
@@ -472,7 +482,10 @@ function updateMaterialInfo(tradeSpotInfo, materialCode, sellPrice)
     -- 设置当前的售卖数量
     setAddressValue(tradeSpotInfo[INDEX_SELL_COUNT], gg.TYPE_DWORD, SELL_ITEM_COUNT, false)
     -- 设置总价格
+<<<<<<< HEAD
     gg.toast(string.format("最终价格为: %d", sellPrice))
+=======
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
     setAddressValue(tradeSpotInfo[INDEX_PRICE], gg.TYPE_DWORD, sellPrice, false)
     -- 设置广告标志
     setAddressValue(tradeSpotInfo[INDEX_ADV_FLAG], gg.TYPE_DWORD, 0, false)
@@ -489,8 +502,11 @@ function materialOnShelf(tradeSpotInfo, materialInfo)
             gg.clearResults()
             os.exit()
         end
+<<<<<<< HEAD
 
         --gg.toast(string.format("设定价格为: %d", SELL_PRICE))
+=======
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
         if getAddressValue(tradeSpotInfo[INDEX_PRICE], gg.TYPE_DWORD) ~= SELL_PRICE then
             updateMaterialInfo(tradeSpotInfo, materialInfo[currentMaterialIndex], SELL_PRICE)
             if currentMaterialIndex == #materialInfo then
@@ -507,6 +523,7 @@ function runMe()
     gg.setVisible(false)
     gg.clearResults()
     -- 初始化售卖价格，价格变动范围在(1~SELL_PRICE_MAX_TIMES)*SELL_ITEM_COUNT之间，步长为SELL_ITEM_COUNT
+<<<<<<< HEAD
     -- math.randomseed(os.time())  
     -- SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
 
@@ -514,18 +531,30 @@ function runMe()
     SELL_PRICE = data[1]
     gg.toast(string.format("设定价格为: %d", SELL_PRICE))
 
+=======
+    math.randomseed(os.time())
+    SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
     --选择要上架的材料信息
     local selectedIndex = getSelectIndex()
     if selectedIndex ~= nil and selectedIndex ~= #selectInfo_1 and selectedIndex ~= (100 + #selectInfo_2) then
         -- 获取搜索条件
         local searchInfo = getSearchInfo(selectedIndex)
+<<<<<<< HEAD
         gg.toast(string.format("成功获取材料搜索信息！: %d",searchInfo.totalCount))
+=======
+        gg.toast("成功获取材料搜索信息！")
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
         --获取交易站信息
         local tradeSpotInfo = getTradeSpotInfo()
         gg.toast("成功获取交易站信息！")
         -- 获取材料代码
         local materialInfo = getMaterialInfo(searchInfo)
+<<<<<<< HEAD
         gg.toast(string.format("成功获取材料代码信息！: %d",#materialInfo))
+=======
+        gg.toast("成功材料代码信息！")
+>>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
         if #materialInfo == searchInfo.totalCount then
             gg.alert("所有的信息已经收集完成，您可以在交易站中任意点击上架了！如果要结束上架，请将商品的价格设置成" .. STOP_CODE .. "。")
             -- 更新材料代码
