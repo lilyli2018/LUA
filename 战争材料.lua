@@ -52,6 +52,7 @@ local INDEX_MATERIAL_CODE = 5
 
 --售卖价格
 local SELL_PRICE = 0
+local FIXED_PRICE = 700
 
 --售卖价格变动最大系数
 local SELL_PRICE_MAX_TIMES = 20
@@ -335,7 +336,8 @@ function runMe()
     gg.clearResults()
     -- 初始化售卖价格，价格变动范围在(1~SELL_PRICE_MAX_TIMES)*SELL_ITEM_COUNT之间，步长为SELL_ITEM_COUNT
     math.randomseed(os.time())
-    SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
+    --SELL_PRICE = SELL_ITEM_COUNT * math.random(SELL_PRICE_MAX_TIMES)
+    SELL_PRICE = SELL_ITEM_COUNT * FIXED_PRICE
     --选择要上架的材料信息
     local selectedIndex = getSelectIndex()
     if selectedIndex ~= nil and selectedIndex ~= #selectInfo_1 and selectedIndex ~= (100 + #selectInfo_2) then
