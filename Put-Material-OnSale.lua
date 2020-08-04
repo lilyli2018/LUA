@@ -69,11 +69,7 @@ local MATERIAL_CODE_OFFSET = -4
 local EIGENVALUE_OFFSET = 40
 
 -- 程序终止代码
-<<<<<<< HEAD
 local STOP_CODE = 999
-=======
-local STOP_CODE = 700
->>>>>>> 444d73ad6a046170e1df69c3ecc68f29fc79535c
 
 -- 一级菜单选项
 local selectInfo_1 = {
