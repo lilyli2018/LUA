@@ -85,11 +85,23 @@ local selectInfo_1 = {
 
 --材料搜索信息表
 local materialSearchInfo = {
+    -------------------------------------------------------
     -- 战争材料的浮动码依以下顺序排列，每个之间的偏移量为112
+    ----1. 弹药箱
+    ----2. 铁砧
+    ----3. 望远镜
+    ----4. 消防栓
+    ----5. 汽油
+    ----6. 扩音器
+    ----7. 老虎钳
+    ----8. 马桶塞
+    ----9. 螺旋桨
+    ----10. 橡胶靴
+    ----11. 小黄鸭
+    ----12. 医疗箱
+    --------------------------------------------------------
     -- 格式说明
     -- index：选择的索引编号
-    -- searchInfo：搜索字符串
-    -- researchInfo：再次查找的字符串
     -- totalCount：材料的总个数
     -- itemInfo：材料信息数组
     --    itemSearchInfo：材料的查找字符串
@@ -98,43 +110,35 @@ local materialSearchInfo = {
     -- 磁力之击
     {
         index = 1,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 5,
         itemInfo = {
-            {itemSearchInfo = "1560176023", itemCount = 1},
-            {itemSearchInfo = "253271711", itemCount = 2},
-            {itemSearchInfo = "860715237", itemCount = 2}
+            {itemSearchInfo = "1560176023", itemCount = 1}, --望远镜
+            {itemSearchInfo = "253271711", itemCount = 2}, --消防栓
+            {itemSearchInfo = "860715237", itemCount = 2} --铁砧
         }
     },
     -- 滑稽之手
     {
         index = 2,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 2,
         itemInfo = {
-            {itemSearchInfo = "-1247109630", itemCount = 1},
-            {itemSearchInfo = "471968558", itemCount = 1}
+            {itemSearchInfo = "-1247109630", itemCount = 1}, --马桶塞
+            {itemSearchInfo = "471968558", itemCount = 1} --小黄鸭
         }
     },
     -- 死神之手
     {
         index = 3,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 9,
         itemInfo = {
-            {itemSearchInfo = "2090081903", itemCount = 2},
-            {itemSearchInfo = "352219700", itemCount = 2},
-            {itemSearchInfo = "471968558", itemCount = 5}
+            {itemSearchInfo = "2090081903", itemCount = 2},--弹药箱
+            {itemSearchInfo = "352219700", itemCount = 2},--小黄鸭
+            {itemSearchInfo = "471968558", itemCount = 5}--老虎钳
         }
     },
     -- 修建传送门
     {
         index = 4,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 10,
         itemInfo = {
             {itemSearchInfo = "860715237", itemCount = 3},
@@ -145,8 +149,6 @@ local materialSearchInfo = {
     -- B级电影怪兽
     {
         index = 5,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 6,
         itemInfo = {
             {itemSearchInfo = "-1607480754", itemCount = 2},
@@ -157,8 +159,6 @@ local materialSearchInfo = {
     -- 响亮怒吼
     {
         index = 6,
-        searchInfo = "51;0;17;0;65::29",
-        researchInfo = "51",
         totalCount = 11,
         itemInfo = {
             {itemSearchInfo = "-1540742631", itemCount = 4},
@@ -169,8 +169,6 @@ local materialSearchInfo = {
     -- 蟒蛇
     {
         index = 7,
-        searchInfo ="51;0;17;0;65::29",
-        resarchInfo = "51",
         totalCount = 8,
         itemInfo = {
             {itemSearchInfo = "1560176023",itemCount = 2},
@@ -181,8 +179,6 @@ local materialSearchInfo = {
     -- 飞行的v机器人
     {
         index = 8,
-        searchInfo = "51;0;17;0;65::29",
-        resarchInfo = "51",
         totalCiunt = 2,
         itemInfo = {
             {itemSearchInfo = "2090081903",itemCount = 1},
@@ -192,8 +188,6 @@ local materialSearchInfo = {
     -- 破盾
     {
         index = 9,
-        searchInfo ="51;0;17;0;65::29",
-        resarchInfo = "51",
         totalCiunt = 7,
         itemInfo = {
             {itemSearchInfo = "-916988905",itemCount = 3},
