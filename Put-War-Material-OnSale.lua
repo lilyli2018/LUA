@@ -19,10 +19,12 @@
 --            {
 --                index = 菜单选择索引=菜单选项值*对应的倍数（一级菜单倍数为1，二级菜单倍数为100）,
 --                searchInfo = "基础搜索信息",
---                researchInfo = "优化搜索信息",
 --                totalCount = 上架材料的总组数,
 --                itemInfo = {
---                    {itemSearchInfo = "每个材料的特征标识码", itemCount = 上架材料的组数},
+--                    {
+--                          itemIndex = "每个材料序号", 
+--                          itemCount = 上架材料的组数
+--                    },
 --                    ...
 --                }
 --            }
@@ -104,95 +106,103 @@ local materialSearchInfo = {
     -- index：选择的索引编号
     -- totalCount：材料的总个数
     -- itemInfo：材料信息数组
-    --    itemSearchInfo：材料的查找字符串
+    --    itemIndex：材料的序号
     --    itemCount：材料的组数
 
     -- 磁力之击
     {
         index = 1,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 5,
         itemInfo = {
-            {itemSearchInfo = "1560176023", itemCount = 1}, --望远镜
-            {itemSearchInfo = "253271711", itemCount = 2}, --消防栓
-            {itemSearchInfo = "860715237", itemCount = 2} --铁砧
+            {itemIndex = 3, itemPrice = 700, itemCount = 1}, --望远镜
+            {itemIndex = 4, itemPrice = 700, itemCount = 2}, --消防栓
+            {itemIndex = 2, itemPrice = 700, itemCount = 2} --铁砧
         }
     },
     -- 滑稽之手
     {
         index = 2,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 2,
         itemInfo = {
-            {itemSearchInfo = "-1247109630", itemCount = 1}, --马桶塞
-            {itemSearchInfo = "471968558", itemCount = 1} --小黄鸭
+            {itemIndex = 8, itemPrice = 700, itemCount = 1}, --马桶塞
+            {itemIndex = 11, itemPrice = 700, itemCount = 1} --小黄鸭
         }
     },
     -- 死神之手
     {
         index = 3,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 9,
         itemInfo = {
-            {itemSearchInfo = "2090081903", itemCount = 2},--弹药箱
-            {itemSearchInfo = "352219700", itemCount = 2},--小黄鸭
-            {itemSearchInfo = "471968558", itemCount = 5}--老虎钳
+            {itemIndex = 1, itemPrice = 2220, itemCount = 2},--弹药箱
+            {itemIndex = 11, itemPrice = 700, itemCount = 2},--小黄鸭
+            {itemIndex = 7, itemPrice = 700, itemCount = 5}--老虎钳
         }
     },
     -- 修建传送门
     {
         index = 4,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 10,
         itemInfo = {
-            {itemSearchInfo = "860715237", itemCount = 3},
-            {itemSearchInfo = "-1247109630", itemCount = 3},
-            {itemSearchInfo = "-1962827238", itemCount = 4}
+            {itemIndex = 4, itemPrice = 700, itemCount = 3}, --消防栓
+            {itemIndex = 8, itemPrice = 700, itemCount = 3}, --马桶塞
+            {itemIndex = 9, itemPrice = 700, itemCount = 4} --螺旋桨
         }
     },
     -- B级电影怪兽
     {
         index = 5,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 6,
         itemInfo = {
-            {itemSearchInfo = "-1607480754", itemCount = 2},
-            {itemSearchInfo = "-1247109630", itemCount = 2},
-            {itemSearchInfo = "-1540742631", itemCount = 2}
+            {itemIndex = 10, itemPrice = 700, itemCount = 2}, --橡胶靴
+            {itemIndex = 8, itemPrice = 700, itemCount = 2}, --马桶塞
+            {itemIndex = 6, itemPrice = 700, itemCount = 2} --扩音器
         }
     },
     -- 响亮怒吼
     {
         index = 6,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 11,
         itemInfo = {
-            {itemSearchInfo = "-1540742631", itemCount = 4},
-            {itemSearchInfo = "352219700", itemCount = 3},
-            {itemSearchInfo = "-1962827238", itemCount = 4}
+            {itemIndex = 6, itemPrice = 700, itemCount = 4}, --扩音器
+            {itemIndex = 7, itemPrice = 700, itemCount = 3}, --老虎钳
+            {itemIndex = 9, itemPrice = 700, itemCount = 4} --螺旋桨
         }
     },
-    -- 蟒蛇
+    -- 蟒蛇怒缠
     {
         index = 7,
+        searchInfo = "2090081903;2090081903::5",
         totalCount = 8,
         itemInfo = {
-            {itemSearchInfo = "1560176023",itemCount = 2},
-            {itemSearchInfo = "352219700",itemCount = 3},
-            {itemSearchInfo = "-1607480754",itemCount = 3}
+            {itemIndex = 3, itemPrice = 700, itemCount = 2}, --望远镜
+            {itemIndex = 7, itemPrice = 700, itemCount = 3}, --老虎钳
+            {itemIndex = 10, itemPrice = 700, itemCount = 3} --橡胶靴
         }
     },
-    -- 飞行的v机器人
+    -- 飞行的V机器人
     {
         index = 8,
+        searchInfo = "2090081903;2090081903::5",
         totalCiunt = 2,
         itemInfo = {
-            {itemSearchInfo = "2090081903",itemCount = 1},
-            {itemSearchInfo = "-916988905",itemCount = 1}
+            {itemIndex = 1, itemPrice = 2220, itemCount = 1}, --弹药箱
+            {itemIndex = 5, itemPrice = 700, itemCount = 1} --汽油
         }
     },
-    -- 破盾
+    -- 护盾破坏者
     {
         index = 9,
-        totalCiunt = 7,
+        searchInfo = "2090081903;2090081903::5",
+        totalCiunt = 6,
         itemInfo = {
-            {itemSearchInfo = "-916988905",itemCount = 3},
-            {itemSearchInfo = "-1962827238",itemCount = 3},
-            {itemSearchInfo = "226338627",itemCount= 1}
+            {itemIndex = 5, itemPrice = 700, itemCount = 5}, --汽油
+            {itemIndex = 12, itemPrice = 700, itemCount = 1} --医疗箱
         }
     }
 }
@@ -247,12 +257,7 @@ end
 -- 返回的索引值，索引值=选择索引*倍数
 function getSelectIndex()
     index = gg.choice(selectInfo_1, nil, "模拟城市-小绿绿")
-    --if index == #selectInfo_1 - 1 then
-    --    index = gg.choice(selectInfo_2, nil, "模拟城市-北极光")
-    --    if index ~= nil then
-    --        index = 100 + index
-    --    end
-    --end
+
     return index
 end
 
@@ -294,7 +299,7 @@ function getMaterialInfo(searchInfo)
     local currentIndex = 1
     gg.clearResults()
     gg.searchNumber(searchInfo.searchInfo, gg.TYPE_DWORD)
-    gg.searchNumber(searchInfo.researchInfo, gg.TYPE_DWORD)
+    --gg.searchNumber(searchInfo.researchInfo, gg.TYPE_DWORD)
     searchResultCount = gg.getResultsCount()
     resultInfo = gg.getResults(searchResultCount)
     for i = 1, #resultInfo do
